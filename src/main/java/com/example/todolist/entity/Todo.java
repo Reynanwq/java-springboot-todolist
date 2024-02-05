@@ -27,6 +27,17 @@ public class Todo {
         this.prioridade = prioridade;
     }
 
+    public Todo(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
+    public Todo(String nome, String descricao, int prioridade) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.prioridade = prioridade;
+    }
+
     public Long getId() {
         return id;
     }

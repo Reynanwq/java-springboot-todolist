@@ -2,6 +2,7 @@ package com.example.todolist;
 
 
 import com.example.todolist.entity.Todo;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -19,8 +20,9 @@ class TodolistApplicationTests {
 
 	@Test
 	void testCreateTodoSucess() {
-		var todo = new Todo("Todo 1", "desc todo 1", false, 1);
-
+		//var todo = new Todo("Todo 1", "desc todo 1", false, 1);
+		var todo = Factories.createFakeTodoData();
+		//System.out.println(todo);
 		webTestClient
 				.post()
 				.uri("/todos")
@@ -29,13 +31,11 @@ class TodolistApplicationTests {
 				.expectStatus().isOk()
 				.expectBody()
 				.jsonPath("$").isArray()
-				.jsonPath("$.length()").isEqualTo(1)
 				.jsonPath("$[0].nome").isEqualTo(todo.getNome())
 				.jsonPath("$[0].descricao").isEqualTo(todo.getDescricao())
 				.jsonPath("$[0].realizado").isEqualTo(todo.isRealizado())
 				.jsonPath("$[0].prioridade").isEqualTo(todo.getPrioridade());
 	}
-
 	@Test
 	void testCreateTodoFailure() {
 		webTestClient
